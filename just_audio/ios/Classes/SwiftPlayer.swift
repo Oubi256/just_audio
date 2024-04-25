@@ -135,7 +135,8 @@ internal class SwiftPlayer: NSObject {
             case .pause:
                 player.pause()
             case .seek:
-                let time = Util.timeFrom(microseconds: request["position"] as! Int64)
+                let position = request["position"] as? Int64 ?? Int64.max
+                let time = Util.timeFrom(microseconds: position)
                 let index = request["index"] as? Int
                 player.seek(second: time.seconds, index: index)
             case .setVolume:
